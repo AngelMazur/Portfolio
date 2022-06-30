@@ -1,0 +1,14 @@
+.container{
+  display: flex;
+  justify-content: space-evenly;
+  cursor: pointer;
+  background-color: rgb(71, 121, 214);
+  margin: 0;
+  padding: 0;
+}
+.brand{
+  text-decoration: none;
+  text-decoration-color: none;
+  font-size: 2em;
+  color: white;
+}

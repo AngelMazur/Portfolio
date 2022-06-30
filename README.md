@@ -1,3 +1,5 @@
 # Portfolio
 Portfolio Angel Mazur
-### Proyecto en React con Next.js
+
+### Init developer
+Yarn run dev
