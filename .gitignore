@@ -19,6 +19,7 @@ more about ignoring files.
 .env.production.local
 .history
 .next
+credentials.js
 
 npm-debug.log*
 yarn-debug.log*

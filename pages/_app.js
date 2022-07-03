@@ -1,6 +1,5 @@
 import Layout from './Layout'
-
-// import '../global.css'
+import '../global.css'
 
 function MyApp({ Component, pageProps }) {
   //El componente app puede recibir:
