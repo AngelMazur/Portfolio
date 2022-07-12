@@ -1,11 +1,10 @@
 import React from 'react'
 import { useRef, useState, useCallback, useEffect } from 'react'
-
+import useGeocode from '../hooks/useGeocode'
 //UI
 import { Flex, Input } from '@chakra-ui/react'
 
 //GOOGLE API
-import Geocode from 'react-geocode'
 import {
   useJsApiLoader,
   GoogleMap,
@@ -17,16 +16,13 @@ import {
 import style from '../Components/Search/Search.module.css'
 
 //DATA
-import data from '../assets/data.json'
+import venues from '../data/venues.json'
 
 //CONST
 const MAP_KEY = process.env.NEXT_PUBLIC_MAPS_KEY
 
 //CONFIG
 const libraries = ['places']
-Geocode.setApiKey(MAP_KEY)
-Geocode.setLanguage('es')
-Geocode.setRegion('es')
 
 const Home = () => {
   //LOAD MAP
@@ -35,33 +31,19 @@ const Home = () => {
     libraries,
   })
   //MARKERS
-  const [markers, setMarker] = useState(data)
-  const centerMap = { lat: 40.4049821, lng: -3.7464155 }
+  const [markers, setMarker] = useState(venues)
 
   //GEOCODE
-  useEffect(() => {
-    Geocode.fromAddress('Zamora Castellana').then(
-      (response) => {
-        const result = response.results[0]
-        const { location } = result.geometry
-
-        const centerMap = {
-          lat: location.lat,
-          lng: location.lng,
-        }
-        console.log(centerMap)
-        return centerMap
-      },
-      (error) => {
-        console.error(error)
-      }
-    )
-  }, [])
+  const { centerMap } = useGeocode({
+    address: 'Tumirada Laguna',
+    zip: '28025',
+  })
 
   /** @type React.MutableRefObject<HTMLInputElement> */
   const mapRef = useRef()
   const onMapLoad = useCallback((map) => {
     mapRef.current = map
+    debugger
   }, [])
 
   if (loadError) return 'Error loading Maps'
@@ -88,15 +70,17 @@ const Home = () => {
           <GoogleMap
             id="map"
             center={centerMap}
-            zoom={10}
+            zoom={18}
             mapContainerStyle={{ width: '80%', height: '80%' }}
             options={{
+              zoomControl: true,
+              streetViewControl: true,
               mapTypeControl: false,
               fullscreenControl: false,
             }}
             onLoad={onMapLoad}
           >
-            {markers.venues.map((marker, i) => (
+            {markers.map((marker, i) => (
               <Marker
                 key={i}
                 position={{ lat: marker.geometry[0], lng: marker.geometry[1] }}
