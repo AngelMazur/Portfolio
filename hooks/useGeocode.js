@@ -15,7 +15,6 @@ export default function useGeocode ({ address, zip, defaultLocation = { lat: 0, 
       (response) => {
         const result = response.results[0]
         const { location } = result.geometry
-        console.log({centerMap})
         setCenterMap(location)
       },
       (error) => {

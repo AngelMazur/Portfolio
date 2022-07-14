@@ -1,0 +1,74 @@
+[
+{
+  "name": "Tumirada Batán",
+  "cp": 28011,
+  "city": "Madrid",
+  "province": "Madrid",
+  "phone": 914701531,
+  "url": "https://app.smartcalendar.es/api/somosopticos/index.php?hash=qiwerubfhb23498r&id=123"
+},
+{
+  "name": "Tumirada Laguna",
+  "cp": 28025,
+  "city": "Madrid",
+  "province": "Madrid",
+  "phone": 914628751,
+  "url": "https://app.smartcalendar.es/api/somosopticos/index.php?hash=qiwerubfhb23498r&id=131"
+},
+{
+  "name" : "Tumirada Reina Victoria",
+  "cp" : 28003,
+  "city" : "Madrid",
+  "province" : "Madrid",
+  "phone" : 915332930,
+  "url" : "https://app.smartcalendar.es/api/somosopticos/index.php?hash=qiwerubfhb23498r&id=132"
+},
+{
+  "name" : "Tumirada Principe de Vergara",
+  "cp" : 28016,
+  "city" : "Madrid",
+  "province" : "Madrid",
+  "phone" : 914582702,
+  "url" : "https://app.smartcalendar.es/api/somosopticos/index.php?hash=qiwerubfhb23498r&id=133"
+},
+{
+  "name" : "Tumirada Caleruega",
+  "cp" : 28033,
+  "city" : "Madrid",
+  "province" : "Madrid",
+  "phone" : 913029340,
+  "url" : "https://app.smartcalendar.es/api/somosopticos/index.php?hash=qiwerubfhb23498r&id=134"
+},
+{
+  "name" : "Zamora Castellana",
+  "cp" : 28046,
+  "city" : "Madrid",
+  "province" : "Madrid",
+  "phone" : 915558362,
+  "url" : "https://app.smartcalendar.es/api/somosopticos/index.php?hash=opzamoras&id=210"
+},
+{
+  "name" : "Zamora Boadilla",
+  "cp" : 28660,
+  "city" : "Boadilla del Monte",
+  "province" : "Madrid",
+  "phone" : 916320597,
+  "url" : "https://app.smartcalendar.es/api/somosopticos/index.php?hash=opzamoras&id=211"
+},
+{
+  "name" : "Optica Mateos",
+  "cp" : 28045,
+  "city" : "Madrid",
+  "province" : "Madrid",
+  "phone" : 916494761,
+  "url" : "https://app.smartcalendar.es/api/somosopticos/index.php?hash=optmateos&id=469"
+},
+{
+  "name" : "Optica Marmol",
+  "cp" : 28850,
+  "city" : "Torrejon de Ardoz",
+  "province" : "Madrid",
+  "phone" : 916564141,
+  "url" : "https://app.smartcalendar.es/api/somosopticos/index.php?hash=optmarmol&id=470"
+}
+]
