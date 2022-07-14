@@ -1,5 +1,5 @@
 import React from 'react'
-import { useRef, useState, useCallback, useEffect } from 'react'
+import { useRef, useState, useCallback } from 'react'
 import useGeocode from '../hooks/useGeocode'
 //UI
 import { Flex, Input } from '@chakra-ui/react'
@@ -12,11 +12,12 @@ import {
   Autocomplete,
 } from '@react-google-maps/api'
 
+import Markers from '@Components/Markers'
 //STYLE
 import style from '../Components/Search/Search.module.css'
 
 //DATA
-import venues from '../data/venues.json'
+import locations from '../data/locations.json'
 
 //CONST
 const MAP_KEY = process.env.NEXT_PUBLIC_MAPS_KEY
@@ -24,26 +25,44 @@ const MAP_KEY = process.env.NEXT_PUBLIC_MAPS_KEY
 //CONFIG
 const libraries = ['places']
 
-const Home = () => {
+const Home = (props) => {
   //LOAD MAP
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: MAP_KEY,
     libraries,
   })
-  //MARKERS
-  const [markers, setMarker] = useState(venues)
 
   //GEOCODE
-  const { centerMap } = useGeocode({
-    address: 'Tumirada Laguna',
-    zip: '28025',
+  const location = locations.map((item) => {
+    return [item.name, item.cp]
   })
+
+  const zip = location.map(item => {
+    return item[1]
+  })
+console.log(zip)
+
+const addres = location.map(item => {
+  return item[0]
+})
+console.log(addres)
+
+
+const { centerMap } = useGeocode({
+  address: addres,
+  zip: zip,
+})
+
+console.log({centerMap})
+  //MARKERS
+  const [markers, setMarker] = useState({centerMap})
+
+  console.log({ markers })
 
   /** @type React.MutableRefObject<HTMLInputElement> */
   const mapRef = useRef()
   const onMapLoad = useCallback((map) => {
     mapRef.current = map
-    debugger
   }, [])
 
   if (loadError) return 'Error loading Maps'
@@ -70,7 +89,7 @@ const Home = () => {
           <GoogleMap
             id="map"
             center={centerMap}
-            zoom={18}
+            zoom={10}
             mapContainerStyle={{ width: '80%', height: '80%' }}
             options={{
               zoomControl: true,
@@ -80,12 +99,7 @@ const Home = () => {
             }}
             onLoad={onMapLoad}
           >
-            {markers.map((marker, i) => (
-              <Marker
-                key={i}
-                position={{ lat: marker.geometry[0], lng: marker.geometry[1] }}
-              />
-            ))}
+            {/* <Markers places={markers} /> */}
           </GoogleMap>
         </div>
       </Flex>
