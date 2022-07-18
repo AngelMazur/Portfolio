@@ -1,14 +1,17 @@
-import React, { useState } from 'react'
-import { Marker } from '@react-google-maps/api'
+import React from 'react'
+import { Marker, InfoWindow } from '@react-google-maps/api'
 // import useGeocode from '../../hooks/useGeocode'
 
 const Markers = (props) => {
-  const { places } = props
-  console.log({ places })
-  const markers = places.map((place, i) => (
-    <Marker key={i} position={place} />
+  const { position, onClick } = props
+  const markers = position.map((place, i) => (
+    <Marker
+      key={i}
+      position={{ lat: place.geometry[0], lng: place.geometry[1] }}
+      onClick={onClick}
+    />
   ))
-  return {markers}
+  return <>{markers}</>
 }
 
 export default Markers

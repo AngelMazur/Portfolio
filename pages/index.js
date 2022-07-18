@@ -1,15 +1,15 @@
 import React from 'react'
-import { useRef, useState, useCallback } from 'react'
+import { useRef, useState, useCallback, useEffect } from 'react'
 import useGeocode from '../hooks/useGeocode'
 //UI
 import { Flex, Input } from '@chakra-ui/react'
-
+// import { formatRelative } from "date-fns"
 //GOOGLE API
 import {
   useJsApiLoader,
   GoogleMap,
-  Marker,
   Autocomplete,
+  // InfoWindow,
 } from '@react-google-maps/api'
 
 import Markers from '@Components/Markers'
@@ -17,47 +17,46 @@ import Markers from '@Components/Markers'
 import style from '../Components/Search/Search.module.css'
 
 //DATA
+import venues from '../data/venues.json'
 import locations from '../data/locations.json'
 
 //CONST
 const MAP_KEY = process.env.NEXT_PUBLIC_MAPS_KEY
 
-//CONFIG
-const libraries = ['places']
-
 const Home = (props) => {
   //LOAD MAP
+  const [libraries] = useState(['places'])
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: MAP_KEY,
     libraries,
   })
 
+  console.log(isLoaded)
   //GEOCODE
   const location = locations.map((item) => {
     return [item.name, item.cp]
   })
 
-  const zip = location.map(item => {
-    return item[1]
+  const zip = location.map((item) => {
+    return item[0]
   })
-console.log(zip)
 
-const addres = location.map(item => {
-  return item[0]
-})
-console.log(addres)
+  const address = location.map((item) => {
+    return item[0]
+  })
 
+  const { centerMap } = useGeocode({
+    address: address[7],
+    zip: zip[7],
+  })
 
-const { centerMap } = useGeocode({
-  address: addres,
-  zip: zip,
-})
+  // console.log(centerMap)
 
-console.log({centerMap})
   //MARKERS
-  const [markers, setMarker] = useState({centerMap})
+  const [markers, setMarker] = useState(venues)
+  console.log(markers)
 
-  console.log({ markers })
+  const [selected, setSelected] = useState(null)
 
   /** @type React.MutableRefObject<HTMLInputElement> */
   const mapRef = useRef()
@@ -67,7 +66,6 @@ console.log({centerMap})
 
   if (loadError) return 'Error loading Maps'
   if (!isLoaded) return 'Loading Maps'
-
   return (
     <>
       <Flex
@@ -99,11 +97,15 @@ console.log({centerMap})
             }}
             onLoad={onMapLoad}
           >
-            {/* <Markers places={markers} /> */}
+            {/* {markers.map((place, i) => (
+              <Marker key={i} position={{lat: place.geometry[0], lng: place.geometry[1]}} />
+            ))} */}
+            <Markers position={markers} />
           </GoogleMap>
         </div>
       </Flex>
     </>
   )
 }
+
 export default Home
