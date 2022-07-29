@@ -4,6 +4,7 @@ import Link from 'next/link'
 import style from './NavBar.module.css'
 
 const Navbar = () => {
+  console.log('Navbar renderizado')
   return (
     <nav>
       <menu className={style.container}>
