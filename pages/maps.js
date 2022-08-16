@@ -1,8 +1,10 @@
 import React, { useRef, useState, useCallback, useEffect } from 'react'
 import useGeocode from '../hooks/useGeocode'
+import Box from '@Components/Box'
+
 //UI
 import { Flex, Input } from '@chakra-ui/react'
-// import { formatRelative } from "date-fns"
+
 //GOOGLE API
 import {
   useJsApiLoader,
@@ -12,11 +14,11 @@ import {
   InfoWindow,
 } from '@react-google-maps/api'
 
-import gafas from '../assets/gafas.png'
+// import gafas from '../assets/gafas.png'
+// import Markers from '@Components/Markers'
 
-import Markers from '@Components/Markers'
 //STYLE
-import style from '../Components/Search/Search.module.css'
+import style from '@Components/Search/Search.module.css'
 
 //DATA
 import venues from '../data/venues.json'
@@ -27,7 +29,7 @@ const MAP_KEY = process.env.NEXT_PUBLIC_MAPS_KEY
 
 const Maps = () => {
   console.log('Maps renderizado')
-  //LOAD MAP
+  //INIT MAP
   const [libraries] = useState(['places'])
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: MAP_KEY,
@@ -35,6 +37,7 @@ const Maps = () => {
   })
 
   console.log({ isLoaded })
+
   //GEOCODE
   const location = locations.map((item) => {
     return [item.name, item.cp]
@@ -55,14 +58,10 @@ const Maps = () => {
 
   //MARKERS
   const [markers, setMarker] = useState(venues)
-  console.log(markers)
+  const [selected, setSelected] = useState(null)
+  console.log(selected)
 
-  // useEffect(() => {
-  //   setMarker(venues)
-  // }, [markers])
-  // const [selected, setSelected] = useState(null)
   // const { selected } = Markers()
-  // console.log(onSelected)
   // const onClick = () => {
   //   setSelected({
   //     lat: markers[0].geometry[0],
@@ -71,22 +70,22 @@ const Maps = () => {
   //   console.log('prueba de botón')
   // }
 
+  // LOAD MAP
   /** @type React.MutableRefObject<HTMLInputElement> */
   const mapRef = useRef()
   const onMapLoad = useCallback(() => mapRef.current, [])
 
-  // if (loadError) return 'Error loading Maps'
-  // if (!isLoaded) return 'Loading Maps'
   if (!isLoaded) {
     return 'LOADING MAPS'
   } else {
     return (
       <>
         <Flex
-          position="relative"
-          flexDirection="column"
           alignItems="center"
-          h="90vh"
+          flexDirection="column"
+          justifyContent="center"
+          position="relative"
+          h="50vh"
           w="98vw"
         >
           {/* <Autocomplete>
@@ -111,7 +110,7 @@ const Maps = () => {
               }}
               onLoad={onMapLoad}
             >
-              {/* {markers.map((place, i) => (
+              {markers.map((place, i) => (
                 <Marker
                   key={i}
                   position={{ lat: place.geometry[0], lng: place.geometry[1] }}
@@ -122,24 +121,38 @@ const Maps = () => {
                     })
                   }}
                 />
-              ))} */}
-              <Markers
+              ))}
+              {/* <Markers
                 position={markers}
-              />
-              {/* {markers ? (
+                onLoad={onMapLoad}
+              /> */}
+              {selected ? (
                 <InfoWindow
-                  position={markers}
+                  position={{ lat: selected.lat, lng: selected.lng }}
                   onLoad={onMapLoad}
                   onCloseClick={() => {
                     setSelected(null)
                   }}
                 >
-                  <p>Prueba de marcador</p>
+                  <p>
+                    Estoy en la latitud: {selected.lat} y en la longitud{' '}
+                    {selected.lng}
+                  </p>
                 </InfoWindow>
-              ) : null} */}
+              ) : null}
             </GoogleMap>
           </div>
         </Flex>
+        {markers.map((item, i) => (
+          <Box
+          key={i}
+          render={`lat: ${item.geometry[0]}, lng: ${item.geometry[1]}`} />
+        ))}
+
+        {/* PARA SELECCIONAR EL MARCADOR Y QUE TE LO PINTE EL BOX
+        {selected ? (
+          <Box selected={`lat: ${selected.lat} lng: ${selected.lng}`} />
+        ) : null} */}
       </>
     )
   }

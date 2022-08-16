@@ -1,20 +1,32 @@
 import React, { useState } from 'react'
 import { Marker, InfoWindow } from '@react-google-maps/api'
-// import useGeocode from '../../hooks/useGeocode'
 
-const Markers = ({ position }) => {
+const Markers = ({ position, onLoad }) => {
   console.log('Markers renderizado')
   const [selected, setSelected] = useState(null)
-  const markers = position.map((place, i) => (
-    <Marker
-      key={i}
-      position={{ lat: place.geometry[0], lng: place.geometry[1] }}
-      onClick={() => {
-        setSelected({ lat: place.geometry[0], lng: place.geometry[1] })
-      }}
-    />
+  const stateMarker = position.map((place, i) => (
+    <>
+      <Marker
+        key={i}
+        position={{ lat: place.geometry[0], lng: place.geometry[1] }}
+        onClick={() => {
+          setSelected({ lat: place.geometry[0], lng: place.geometry[1] })
+        }}
+      />
+      {selected ? (
+        <InfoWindow
+        position={{ lat: place.geometry[0], lng: place.geometry[1] }}
+        onLoad={onLoad}
+        onCloseClick={() => {
+          setSelected(null)
+        }}
+      >
+        <p>Prueba de mierda</p>
+      </InfoWindow>
+      ) : null}
+    </>
   ))
-  return <>{markers}</>
+  return <>{stateMarker}</>
 }
 
 export default Markers

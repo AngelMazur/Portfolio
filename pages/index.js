@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 import style from './style/Home.module.css'
 
-const Home = (props) => {
+const Home = () => {
   return (
    <>
     <menu className={style.container}>
