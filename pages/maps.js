@@ -1,16 +1,15 @@
-import React, { useRef, useState, useCallback, useEffect } from 'react'
+import React, { useRef, useState, useCallback } from 'react'
 import useGeocode from '../hooks/useGeocode'
 import Box from '@Components/Box'
 
 //UI
-import { Flex, Input } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
 
 //GOOGLE API
 import {
   useJsApiLoader,
   GoogleMap,
   Marker,
-  Autocomplete,
   InfoWindow,
 } from '@react-google-maps/api'
 
@@ -21,7 +20,6 @@ import {
 import style from '@Components/Search/Search.module.css'
 
 //DATA
-import venues from '../data/venues.json'
 import locations from '../data/locations.json'
 
 //CONST
@@ -38,6 +36,7 @@ const Maps = () => {
 
   console.log({ isLoaded })
 
+  //TODO: Integrar geocode (solo consigo que me de un output)
   //GEOCODE
   const location = locations.map((item) => {
     return [item.name, item.cp]
@@ -52,14 +51,37 @@ const Maps = () => {
   })
 
   const { centerMap } = useGeocode({
-    address: address[7],
-    zip: zip[7],
+    address: address[3],
+    zip: zip[3],
   })
-
   //MARKERS
-  const [markers, setMarker] = useState(venues)
+  const [markers, setMarker] = useState(locations)
   const [selected, setSelected] = useState(null)
   console.log(selected)
+
+//
+  const renderBoxes = markers.map((item, i) => (
+    <Box
+      key={i}
+      geometry={`lat: ${item.geometry[0]}, lng: ${item.geometry[1]}`}
+      name={item.name}
+      province={item.province}
+      url={item.url}
+    />
+  ))
+  const toggleSelected = () => {
+    if (!selected) {
+      return renderBoxes
+    } else {
+      return (
+        <Box
+          name={selected.name}
+          province={selected.province}
+          url={selected.url}
+        />
+      )
+    }
+  }
 
   // const { selected } = Markers()
   // const onClick = () => {
@@ -74,6 +96,7 @@ const Maps = () => {
   /** @type React.MutableRefObject<HTMLInputElement> */
   const mapRef = useRef()
   const onMapLoad = useCallback(() => mapRef.current, [])
+  //TODO: integrar loadError
 
   if (!isLoaded) {
     return 'LOADING MAPS'
@@ -88,19 +111,11 @@ const Maps = () => {
           h="50vh"
           w="98vw"
         >
-          {/* <Autocomplete>
-          <Input
-            type="text"
-            placeholder="Location"
-            ref={mapRef}
-            className={style.search}
-          />
-        </Autocomplete> */}
           <div className={style.box}>
             <GoogleMap
               id="map"
               center={centerMap}
-              zoom={10}
+              zoom={11}
               mapContainerStyle={{ width: '80%', height: '80%' }}
               options={{
                 zoomControl: true,
@@ -110,14 +125,17 @@ const Maps = () => {
               }}
               onLoad={onMapLoad}
             >
-              {markers.map((place, i) => (
+              {markers.map((item, i) => (
                 <Marker
                   key={i}
-                  position={{ lat: place.geometry[0], lng: place.geometry[1] }}
+                  position={{ lat: item.geometry[0], lng: item.geometry[1] }}
                   onClick={() => {
                     setSelected({
-                      lat: place.geometry[0],
-                      lng: place.geometry[1],
+                      lat: item.geometry[0],
+                      lng: item.geometry[1],
+                      name: item.name,
+                      province: item.province,
+                      url: item.url,
                     })
                   }}
                 />
@@ -134,25 +152,16 @@ const Maps = () => {
                     setSelected(null)
                   }}
                 >
-                  <p>
-                    Estoy en la latitud: {selected.lat} y en la longitud{' '}
-                    {selected.lng}
-                  </p>
+                  <>
+                    <h3>{selected.name}</h3>
+                    <p>{selected.province}</p>
+                  </>
                 </InfoWindow>
               ) : null}
             </GoogleMap>
           </div>
         </Flex>
-        {markers.map((item, i) => (
-          <Box
-          key={i}
-          render={`lat: ${item.geometry[0]}, lng: ${item.geometry[1]}`} />
-        ))}
-
-        {/* PARA SELECCIONAR EL MARCADOR Y QUE TE LO PINTE EL BOX
-        {selected ? (
-          <Box selected={`lat: ${selected.lat} lng: ${selected.lng}`} />
-        ) : null} */}
+        {toggleSelected()}
       </>
     )
   }
