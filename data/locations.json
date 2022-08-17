@@ -5,7 +5,10 @@
   "city": "Madrid",
   "province": "Madrid",
   "phone": 914701531,
-  "url": "https://app.smartcalendar.es/api/somosopticos/index.php?hash=qiwerubfhb23498r&id=123"
+  "url": "https://app.smartcalendar.es/api/somosopticos/index.php?hash=qiwerubfhb23498r&id=123",
+  "geometry":[
+    40.4049821, -3.7464155
+  ]
 },
 {
   "name": "Tumirada Laguna",
@@ -13,7 +16,10 @@
   "city": "Madrid",
   "province": "Madrid",
   "phone": 914628751,
-  "url": "https://app.smartcalendar.es/api/somosopticos/index.php?hash=qiwerubfhb23498r&id=131"
+  "url": "https://app.smartcalendar.es/api/somosopticos/index.php?hash=qiwerubfhb23498r&id=131",
+  "geometry":[
+    40.378739, -3.7358924
+  ]
 },
 {
   "name" : "Tumirada Reina Victoria",
@@ -21,7 +27,10 @@
   "city" : "Madrid",
   "province" : "Madrid",
   "phone" : 915332930,
-  "url" : "https://app.smartcalendar.es/api/somosopticos/index.php?hash=qiwerubfhb23498r&id=132"
+  "url" : "https://app.smartcalendar.es/api/somosopticos/index.php?hash=qiwerubfhb23498r&id=132",
+  "geometry":[
+    40.44587, -3.71241
+  ]
 },
 {
   "name" : "Tumirada Principe de Vergara",
@@ -29,7 +38,10 @@
   "city" : "Madrid",
   "province" : "Madrid",
   "phone" : 914582702,
-  "url" : "https://app.smartcalendar.es/api/somosopticos/index.php?hash=qiwerubfhb23498r&id=133"
+  "url" : "https://app.smartcalendar.es/api/somosopticos/index.php?hash=qiwerubfhb23498r&id=133",
+  "geometry":[
+    40.4556929, -3.6770649
+  ]
 },
 {
   "name" : "Tumirada Caleruega",
@@ -37,7 +49,10 @@
   "city" : "Madrid",
   "province" : "Madrid",
   "phone" : 913029340,
-  "url" : "https://app.smartcalendar.es/api/somosopticos/index.php?hash=qiwerubfhb23498r&id=134"
+  "url" : "https://app.smartcalendar.es/api/somosopticos/index.php?hash=qiwerubfhb23498r&id=134",
+  "geometry":[
+    40.4771671, -3.669590099999999
+  ]
 },
 {
   "name" : "Zamora Castellana",
@@ -45,7 +60,10 @@
   "city" : "Madrid",
   "province" : "Madrid",
   "phone" : 915558362,
-  "url" : "https://app.smartcalendar.es/api/somosopticos/index.php?hash=opzamoras&id=210"
+  "url" : "https://app.smartcalendar.es/api/somosopticos/index.php?hash=opzamoras&id=210",
+  "geometry":[
+    40.4531208, -3.6895411
+  ]
 },
 {
   "name" : "Zamora Boadilla",
@@ -53,7 +71,10 @@
   "city" : "Boadilla del Monte",
   "province" : "Madrid",
   "phone" : 916320597,
-  "url" : "https://app.smartcalendar.es/api/somosopticos/index.php?hash=opzamoras&id=211"
+  "url" : "https://app.smartcalendar.es/api/somosopticos/index.php?hash=opzamoras&id=211",
+  "geometry":[
+    40.4069385, -3.8786935
+  ]
 },
 {
   "name" : "Optica Mateos",
@@ -61,7 +82,10 @@
   "city" : "Madrid",
   "province" : "Madrid",
   "phone" : 916494761,
-  "url" : "https://app.smartcalendar.es/api/somosopticos/index.php?hash=optmateos&id=469"
+  "url" : "https://app.smartcalendar.es/api/somosopticos/index.php?hash=optmateos&id=469",
+  "geometry":[
+    40.3915008, -3.6912424
+  ]
 },
 {
   "name" : "Optica Marmol",
@@ -69,6 +93,9 @@
   "city" : "Torrejon de Ardoz",
   "province" : "Madrid",
   "phone" : 916564141,
-  "url" : "https://app.smartcalendar.es/api/somosopticos/index.php?hash=optmarmol&id=470"
+  "url" : "https://app.smartcalendar.es/api/somosopticos/index.php?hash=optmarmol&id=470",
+  "geometry":[
+    40.4505571, -3.467796
+  ]
 }
 ]
