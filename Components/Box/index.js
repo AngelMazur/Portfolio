@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import style from './Box.module.css'
 import Link from 'next/link'
 
@@ -8,9 +8,7 @@ const Box = ({ geometry, name, province, url }) => {
       <ul className={style.container}>
         <li className={style.box}>
           <Link href={url}>
-            <a
-              target="_blank"
-              rel="noopener noreferrer">
+            <a target="_blank" rel="noopener noreferrer">
               <h2>{name}</h2>
             </a>
           </Link>

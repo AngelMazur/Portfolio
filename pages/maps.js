@@ -14,7 +14,7 @@ import {
 } from '@react-google-maps/api'
 
 // import gafas from '../assets/gafas.png'
-// import Markers from '@Components/Markers'
+import Markers from '@Components/Markers'
 
 //STYLE
 import style from '@Components/Search/Search.module.css'
@@ -57,9 +57,8 @@ const Maps = () => {
   //MARKERS
   const [markers, setMarker] = useState(locations)
   const [selected, setSelected] = useState(null)
-  console.log(selected)
 
-//
+  //
   const renderBoxes = markers.map((item, i) => (
     <Box
       key={i}
@@ -82,15 +81,6 @@ const Maps = () => {
       )
     }
   }
-
-  // const { selected } = Markers()
-  // const onClick = () => {
-  //   setSelected({
-  //     lat: markers[0].geometry[0],
-  //     lng: markers[0].geometry[1],
-  //   })
-  //   console.log('prueba de botón')
-  // }
 
   // LOAD MAP
   /** @type React.MutableRefObject<HTMLInputElement> */
@@ -125,39 +115,13 @@ const Maps = () => {
               }}
               onLoad={onMapLoad}
             >
-              {markers.map((item, i) => (
-                <Marker
-                  key={i}
-                  position={{ lat: item.geometry[0], lng: item.geometry[1] }}
-                  onClick={() => {
-                    setSelected({
-                      lat: item.geometry[0],
-                      lng: item.geometry[1],
-                      name: item.name,
-                      province: item.province,
-                      url: item.url,
-                    })
-                  }}
-                />
-              ))}
-              {/* <Markers
+              <Markers
                 position={markers}
                 onLoad={onMapLoad}
-              /> */}
-              {selected ? (
-                <InfoWindow
-                  position={{ lat: selected.lat, lng: selected.lng }}
-                  onLoad={onMapLoad}
-                  onCloseClick={() => {
-                    setSelected(null)
-                  }}
-                >
-                  <>
-                    <h3>{selected.name}</h3>
-                    <p>{selected.province}</p>
-                  </>
-                </InfoWindow>
-              ) : null}
+                selected={selected}
+                onCloseClick={setSelected}
+                onClick={setSelected}
+              />
             </GoogleMap>
           </div>
         </Flex>
