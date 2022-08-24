@@ -1,14 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Marker, InfoWindow } from '@react-google-maps/api'
 
-const Markers = ({
-  position,
-  onLoad,
-  selected,
-  onClick,
-  onCloseClick,
-}) => {
+const Markers = ({ position, onLoad, selected, onClick, onCloseClick, setSelectedMarker }) => {
   console.log('Markers renderizado')
+
   const stateMarker = position.map((item, i) => (
     <React.Fragment key={i}>
       <Marker

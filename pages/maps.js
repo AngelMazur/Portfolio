@@ -6,18 +6,13 @@ import Box from '@Components/Box'
 import { Flex } from '@chakra-ui/react'
 
 //GOOGLE API
-import {
-  useJsApiLoader,
-  GoogleMap,
-  Marker,
-  InfoWindow,
-} from '@react-google-maps/api'
+import { useJsApiLoader, GoogleMap, Marker } from '@react-google-maps/api'
 
 // import gafas from '../assets/gafas.png'
 import Markers from '@Components/Markers'
 
 //STYLE
-import style from '@Components/Search/Search.module.css'
+import style from './style/Maps.module.css'
 
 //DATA
 import locations from '../data/locations.json'
@@ -33,6 +28,7 @@ const Maps = () => {
     googleMapsApiKey: MAP_KEY,
     libraries,
   })
+
 
   console.log({ isLoaded })
 
@@ -56,9 +52,12 @@ const Maps = () => {
   })
   //MARKERS
   const [markers, setMarker] = useState(locations)
-  const [selected, setSelected] = useState(null)
 
-  //
+  const [selectedMarker, setSelectedMarker] = useState(false)
+  const [selected, setSelected] = useState(null)
+  const toggleButtonBox = () => !selectedMarker ? setSelectedMarker(true) : setSelectedMarker(false)
+  console.log(markers)
+  //RENDERS BOXES
   const renderBoxes = markers.map((item, i) => (
     <Box
       key={i}
@@ -66,9 +65,11 @@ const Maps = () => {
       name={item.name}
       province={item.province}
       url={item.url}
+      onClick={() => toggleButtonBox()}
     />
   ))
-  const toggleSelected = () => {
+
+  const toggleSelectedBox = () => {
     if (!selected) {
       return renderBoxes
     } else {
@@ -77,6 +78,27 @@ const Maps = () => {
           name={selected.name}
           province={selected.province}
           url={selected.url}
+        />
+      )
+    }
+  }
+
+  const toggleSelectedMarker = () => {
+    if (!selectedMarker) {
+      return (
+        <Markers
+          position={markers}
+          onLoad={onMapLoad}
+          selected={selected}
+          onCloseClick={setSelected}
+          onClick={setSelected}
+        />
+      )
+    } else {
+      return (
+        <Marker
+          // key={i}
+          position={{ lat: 40.3915008, lng: -3.6912424 }}
         />
       )
     }
@@ -115,17 +137,18 @@ const Maps = () => {
               }}
               onLoad={onMapLoad}
             >
-              <Markers
+              {/* <Markers
                 position={markers}
                 onLoad={onMapLoad}
                 selected={selected}
                 onCloseClick={setSelected}
                 onClick={setSelected}
-              />
+              /> */}
+              {toggleSelectedMarker()}
             </GoogleMap>
           </div>
         </Flex>
-        {toggleSelected()}
+        {toggleSelectedBox()}
       </>
     )
   }
