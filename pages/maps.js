@@ -55,8 +55,13 @@ const Maps = () => {
 
   const [selectedMarker, setSelectedMarker] = useState(false)
   const [selected, setSelected] = useState(null)
+
   const toggleButtonBox = () => !selectedMarker ? setSelectedMarker(true) : setSelectedMarker(false)
-  console.log(markers)
+  console.log({selectedMarker})
+  console.log({selected})
+  
+
+
   //RENDERS BOXES
   const renderBoxes = markers.map((item, i) => (
     <Box
@@ -65,12 +70,21 @@ const Maps = () => {
       name={item.name}
       province={item.province}
       url={item.url}
-      onClick={() => toggleButtonBox()}
+      onClick={() =>
+        setSelected({
+            lat: item.geometry[0],
+            lng: item.geometry[1],
+            name: item.name,
+            province: item.province,
+            url: item.url,
+            toggleButtonBox: toggleButtonBox(),
+          })
+        }
     />
   ))
 
   const toggleSelectedBox = () => {
-    if (!selected) {
+    if (!selectedMarker) {
       return renderBoxes
     } else {
       return (
@@ -78,6 +92,7 @@ const Maps = () => {
           name={selected.name}
           province={selected.province}
           url={selected.url}
+          onClick={() =>toggleButtonBox()}
         />
       )
     }
@@ -97,8 +112,7 @@ const Maps = () => {
     } else {
       return (
         <Marker
-          // key={i}
-          position={{ lat: 40.3915008, lng: -3.6912424 }}
+          position={{ lat: selected.lat, lng: selected.lng }}
         />
       )
     }

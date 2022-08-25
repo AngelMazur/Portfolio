@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Marker, InfoWindow } from '@react-google-maps/api'
 
-const Markers = ({ position, onLoad, selected, onClick, onCloseClick, setSelectedMarker }) => {
+const Markers = ({ position, onLoad, selected, onClick, onCloseClick }) => {
   console.log('Markers renderizado')
 
   const stateMarker = position.map((item, i) => (
@@ -19,7 +19,7 @@ const Markers = ({ position, onLoad, selected, onClick, onCloseClick, setSelecte
           })
         }
       />
-      {selected ? (
+      { selected  ? (
         <InfoWindow
           key={item.id}
           position={{ lat: selected.lat, lng: selected.lng }}
