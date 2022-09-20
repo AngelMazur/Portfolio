@@ -13,6 +13,7 @@ import Markers from '@Components/Markers'
 
 //STYLE
 import style from './style/Maps.module.css'
+import { WrapperBox } from './style/maps.syle'
 
 //DATA
 import locations from '../data/locations.json'
@@ -28,7 +29,6 @@ const Maps = () => {
     googleMapsApiKey: MAP_KEY,
     libraries,
   })
-
 
   console.log({ isLoaded })
 
@@ -56,11 +56,10 @@ const Maps = () => {
   const [selectedMarker, setSelectedMarker] = useState(false)
   const [selected, setSelected] = useState(null)
 
-  const toggleButtonBox = () => !selectedMarker ? setSelectedMarker(true) : setSelectedMarker(false)
-  console.log({selectedMarker})
-  console.log({selected})
-  
-
+  const toggleButtonBox = () =>
+    !selectedMarker ? setSelectedMarker(true) : setSelectedMarker(false)
+  console.log({ selectedMarker })
+  console.log({ selected })
 
   //RENDERS BOXES
   const renderBoxes = markers.map((item, i) => (
@@ -72,14 +71,14 @@ const Maps = () => {
       url={item.url}
       onClick={() =>
         setSelected({
-            lat: item.geometry[0],
-            lng: item.geometry[1],
-            name: item.name,
-            province: item.province,
-            url: item.url,
-            toggleButtonBox: toggleButtonBox(),
-          })
-        }
+          lat: item.geometry[0],
+          lng: item.geometry[1],
+          name: item.name,
+          province: item.province,
+          url: item.url,
+          toggleButtonBox: toggleButtonBox(),
+        })
+      }
     />
   ))
 
@@ -92,7 +91,7 @@ const Maps = () => {
           name={selected.name}
           province={selected.province}
           url={selected.url}
-          onClick={() =>toggleButtonBox()}
+          onClick={() => toggleButtonBox()}
         />
       )
     }
@@ -110,11 +109,7 @@ const Maps = () => {
         />
       )
     } else {
-      return (
-        <Marker
-          position={{ lat: selected.lat, lng: selected.lng }}
-        />
-      )
+      return <Marker position={{ lat: selected.lat, lng: selected.lng }} />
     }
   }
 
@@ -162,7 +157,9 @@ const Maps = () => {
             </GoogleMap>
           </div>
         </Flex>
-        {toggleSelectedBox()}
+        <WrapperBox
+          className={!selectedMarker ? '' : 'selectedMarker'}
+          >{toggleSelectedBox()}</WrapperBox>
       </>
     )
   }

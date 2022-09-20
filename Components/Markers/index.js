@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Marker, InfoWindow } from '@react-google-maps/api'
 
 const Markers = ({ position, onLoad, selected, onClick, onCloseClick }) => {
