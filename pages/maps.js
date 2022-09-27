@@ -1,19 +1,13 @@
 import React, { useRef, useState, useCallback } from 'react'
 import useGeocode from '../hooks/useGeocode'
 import Box from '@Components/Box'
-
-//UI
-import { Flex } from '@chakra-ui/react'
+import Markers from '@Components/Markers'
 
 //GOOGLE API
 import { useJsApiLoader, GoogleMap, Marker } from '@react-google-maps/api'
 
-// import gafas from '../assets/gafas.png'
-import Markers from '@Components/Markers'
-
 //STYLE
-import style from './style/Maps.module.css'
-import { WrapperBox } from './style/maps.syle'
+import { MapsContent, WrapperBox, WrapperMaps } from './style/maps.style'
 
 //DATA
 import locations from '../data/locations.json'
@@ -124,15 +118,8 @@ const Maps = () => {
   } else {
     return (
       <>
-        <Flex
-          alignItems="center"
-          flexDirection="column"
-          justifyContent="center"
-          position="relative"
-          h="50vh"
-          w="98vw"
-        >
-          <div className={style.box}>
+        <MapsContent>
+          <WrapperMaps>
             <GoogleMap
               id="map"
               center={centerMap}
@@ -146,20 +133,13 @@ const Maps = () => {
               }}
               onLoad={onMapLoad}
             >
-              {/* <Markers
-                position={markers}
-                onLoad={onMapLoad}
-                selected={selected}
-                onCloseClick={setSelected}
-                onClick={setSelected}
-              /> */}
               {toggleSelectedMarker()}
             </GoogleMap>
-          </div>
-        </Flex>
-        <WrapperBox
-          className={!selectedMarker ? '' : 'selectedMarker'}
-          >{toggleSelectedBox()}</WrapperBox>
+          </WrapperMaps>
+        </MapsContent>
+        <WrapperBox className={!selectedMarker ? '' : 'selectedMarker'}>
+          {toggleSelectedBox()}
+        </WrapperBox>
       </>
     )
   }
