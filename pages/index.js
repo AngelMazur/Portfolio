@@ -3,13 +3,16 @@ import Link from 'next/link'
 
 import style from './style/Home.module.css'
 
+//Components
+import Carousel from '@Components/Carousel'
+
 const Home = () => {
   return (
    <>
     <menu className={style.container}>
       <h1 className={style.title}>Opticas Mazur</h1>
       <section>
-        <h3>Carrusel de fotos</h3>
+        <Carousel/>
         <ul>
           <li>Foto de GAFA</li>
           <li>Foto de GAFA</li>
