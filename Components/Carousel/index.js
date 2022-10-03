@@ -3,16 +3,18 @@ import Image from 'next/future/image'
 import styled from 'styled-components'
 
 //Style
+
 const CarouselImg = {
   maxWidth: '500px',
   width: '100%',
   height: 'auto',
-  /* opacity: 0;
-  transition: 1s;
-  &.loaded {
-    opacity: 1;
-  } */
+  opacity: 0,
+  transition: '1s',
+  loaded : {
+    opacity: 1
+  }
 }
+
 const CarouselButton = styled.button`
   color: white;
   background-color: #ebd2d4;
@@ -29,6 +31,13 @@ const CarouselWrapped = styled.div`
   justify-content: center;
   align-items: center;
 `
+const ButtonWrapped = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+`
 
 const Carousel = () => {
   const images = [
@@ -38,8 +47,10 @@ const Carousel = () => {
   ]
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [selectedImage, setSelectedImage] = useState(images[0])
+  const [loaded, setLoaded] = useState(false)
 
   const selectNewImage = ({ next = true }) => {
+    setLoaded(false)
     setTimeout(() => {
       const condition = next
         ? selectedIndex < images.length - 1
@@ -70,15 +81,18 @@ const Carousel = () => {
           src={`/assets/Image/${selectedImage}`}
           alt="BannerGlasses"
           style={CarouselImg}
+          className={loaded ? 'loaded' : ''}
+          onLoad={() => setLoaded(true)}
           sizes="80vw"
           priority={true}
           width={100}
           height={100}
         />
-
+      </CarouselWrapped>
+      <ButtonWrapped>
         <CarouselButton onClick={previousImage}>{'<'}</CarouselButton>
         <CarouselButton onClick={nextImage}>{'>'}</CarouselButton>
-      </CarouselWrapped>
+      </ButtonWrapped>
     </>
   )
 }
